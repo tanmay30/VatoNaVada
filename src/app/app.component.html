@@ -1,4 +1,4 @@
-<ngx-loading [show]="loading" [config]="" [template]="customLoadingTemplate"></ngx-loading>
+<ngx-loading [show]="loading" [config]="" ></ngx-loading>
 <div class="alert-wrapper">
     <alert *ngFor="let alert of alerts" [type]="alert.type" dismissOnTimeout="2000" class="text-center">
         {{alert.text}}
