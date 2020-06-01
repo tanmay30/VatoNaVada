@@ -2,7 +2,8 @@
 
 
 .chat-message{
-    padding: 1.5em;
+
+    padding: 0.75em 1.5em;
 
     .image-wrapper {
         margin-right: 2em;
@@ -11,17 +12,23 @@
     }
 
     .name {
-        text-decoration: underline;
+        margin-right: 1em;
+        font-size: 0.7em;
         font-weight: 600;
     }
 
     .timestamp {
         margin-bottom: 1.5em;
         color: darken($light-grey, 15%);
+        font-weight: 200;
+        font-size: 0.6em;
     }
 
     .message {
-        font-size: 1.2em;
+        font-size: 1em;
+        color: darken($color: $grey, $amount: 15%);
+        font-weight: 400;
+        margin-top: 0.2em;
     }
 
     .rounded-circle {

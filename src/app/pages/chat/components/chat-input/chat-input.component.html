@@ -1,6 +1,6 @@
 <div class="new-message-wrapper d-flex">
   <div class="input-group">
-    <textarea [(ngModel)]="newMessageText" rows="3" type="text" class="form-control" placeholder="Enter a new message" (keyup.enter)="submit(newMessage.value)" #newMessage></textarea>
+    <textarea [(ngModel)]="newMessageText" rows="3" type="text" class="form-control" placeholder="Enter a new message..." (keyup.enter)="submit(newMessage.value)" #newMessage></textarea>
     <div class="input-group-append">
       <button class="btn btn-primary" type="button" (click)="submit(newMessage.value)">Enter</button>
     </div>
