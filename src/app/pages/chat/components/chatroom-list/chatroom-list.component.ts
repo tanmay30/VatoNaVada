@@ -32,7 +32,7 @@ export class ChatroomListComponent implements OnInit {
       const currentUser = this.afauth.auth.currentUser.uid;
       // allUsers = allUsers.filter(userid => currentUser === )
 
-      allUsers = allUsers.filter(function (user) {
+      allUsers = allUsers.filter(function (user: any) {
         if (user) {
           return user.id !== currentUser;
         }
