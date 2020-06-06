@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     private auth: AuthService,
     private router: Router,
     private alertService: AlertService
-  ){}
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -28,12 +28,12 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((currentUser) => !!currentUser),
       tap((loggedIn) => {
-        if(!loggedIn){
+        if (!loggedIn) {
           this.alertService.alerts.next(new Alert('You must be logged in to access that page', AlertType.Danger));
           this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
         }
       })
 
-    )
+    );
   }
 }

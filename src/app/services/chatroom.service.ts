@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class ChatroomService {
@@ -16,12 +17,14 @@ export class ChatroomService {
 
   constructor(private db: AngularFirestore,
       private authService: AuthService,
+      private afauth: AngularFireAuth,
       private loadingService: LoadingService,
       ) {
 
     this.selectChatroom = this.changeChatroom.switchMap(chatroomId => {
       if (chatroomId) {
-        return db.doc(`chatrooms/${chatroomId}`).valueChanges();
+        // tslint:disable-next-line:max-line-length
+        return db.doc(`users/${this.afauth.auth.currentUser.uid}/chatrooms/${chatroomId}`).valueChanges();
       }
       return Observable.of(null);
     });
@@ -37,7 +40,7 @@ export class ChatroomService {
       return Observable.of(null);
     });
 
-    this.chatrooms = db.collection('chatrooms').valueChanges();
+    this.chatrooms = db.collection(`users/${this.afauth.auth.currentUser.uid}/chatrooms`).valueChanges();
   }
 
   createMessage(text: string) {
@@ -54,12 +57,22 @@ export class ChatroomService {
 
   addNewChatRoom(userInfo: User) {
     const chatroomId = userInfo.id;
-    const userInformation = {
-      id: chatroomId,
-      name: `${userInfo.firstName} ${userInfo.lastName}`
+    const receverUserInformation = {
+      id: `${chatroomId}_${this.afauth.auth.currentUser.uid}`,
+      name: `${this.authService.currentUserSnapshot.firstName} ${this.authService.currentUserSnapshot.lastName}`, // janki ray
+      sent: 0
     };
-    const userRef = this.db.doc(`chatrooms/${chatroomId}`);
-    userRef.set(userInformation);
-  }
 
+    const senderUserInformation = {
+      id: `${chatroomId}_${this.afauth.auth.currentUser.uid}`,
+      name: `${userInfo.firstName} ${userInfo.lastName}`, // janki ray
+      sent: 1
+    };
+
+    // tslint:disable-next-line:max-line-length
+    const currentUserRef = this.db.doc(`users/${this.afauth.auth.currentUser.uid}/chatrooms/${chatroomId}_${this.afauth.auth.currentUser.uid}`);
+    const senderUserRef = this.db.doc(`users/${chatroomId}/chatrooms/${chatroomId}`);
+    currentUserRef.set(senderUserInformation);
+    senderUserRef.set(receverUserInformation);
+  }
 }
