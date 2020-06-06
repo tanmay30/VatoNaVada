@@ -71,7 +71,7 @@ export class ChatroomService {
 
     // tslint:disable-next-line:max-line-length
     const currentUserRef = this.db.doc(`users/${this.afauth.auth.currentUser.uid}/chatrooms/${chatroomId}_${this.afauth.auth.currentUser.uid}`);
-    const senderUserRef = this.db.doc(`users/${chatroomId}/chatrooms/${chatroomId}`);
+    const senderUserRef = this.db.doc(`users/${chatroomId}/chatrooms/${chatroomId}_${this.afauth.auth.currentUser.uid}`);
     currentUserRef.set(senderUserInformation);
     senderUserRef.set(receverUserInformation);
   }

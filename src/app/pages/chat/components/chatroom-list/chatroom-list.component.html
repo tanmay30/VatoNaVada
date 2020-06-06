@@ -1,9 +1,9 @@
 <div class="h-100 d-flex flex-column chatroom-list">
   &nbsp;
   <button class="btn btn-primary" (click)="openCreateRoomModal(template)">Create New Chat</button>
-  <ng-container *ngFor="let chatroom of chatroomInfo">
+  <ng-container *ngFor="let chatroom of chatroomService.chatrooms | async">
     <div class="chatroom-list-item">
-      <a [routerLink]="['/chat', chatroom.id]">{{ chatroom.name}}</a>
+      <a [routerLink]="['/chat', chatroom.id]" data-toggle="tooltip" data-placement="top" title="{{chatroom.id}}">{{ chatroom.name}}</a>
     </div>
   </ng-container>
 </div>

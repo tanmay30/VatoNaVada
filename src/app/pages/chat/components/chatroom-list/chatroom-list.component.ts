@@ -40,10 +40,6 @@ export class ChatroomListComponent implements OnInit {
 
       this.allUser = allUsers;
     });
-
-    this.chatroomService.chatrooms.subscribe(chatroom => {
-      this.chatroomInfo = chatroom;
-    });
   }
 
   openCreateRoomModal(template: TemplateRef<any>) {
