@@ -1,5 +1,5 @@
 
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { ChatroomService } from '../../../../services/chatroom.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs/Subscription';
@@ -15,11 +15,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
   templateUrl: './chatroom-list.component.html',
   styleUrls: ['./chatroom-list.component.scss']
 })
-export class ChatroomListComponent implements OnInit {
+export class ChatroomListComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   private subscriptions: Subscription[] = [];
+  // public : any;
+  // public : any;
   public allUser: any;
-  public chatroomInfo: any;
+  public photoUrl: Observable<any>;
+
 
   constructor(public chatroomService: ChatroomService,
     private modalService: BsModalService,
@@ -28,22 +31,32 @@ export class ChatroomListComponent implements OnInit {
     private getusers: GetUsersService) { }
 
   ngOnInit() {
-    this.getusers.getAllUser().subscribe(allUsers => {
-      const currentUser = this.afauth.auth.currentUser.uid;
-      // allUsers = allUsers.filter(userid => currentUser === )
+    // this.subscriptions.push(
+    //   this.chatroomService.userInfoForChatroom.subscribe(info => {
+    //   this.photoUrl = info.photoUrl;
+    // }));
 
-      allUsers = allUsers.filter(function (user: any) {
-        if (user) {
-          return user.id !== currentUser;
-        }
-      });
+    this.subscriptions.push(
+      this.getusers.getAllUser().subscribe(allUsers => {
+        const currentUser = this.afauth.auth.currentUser.uid;
+        // allUsers = allUsers.filter(userid => currentUser === )
 
-      this.allUser = allUsers;
-    });
+        allUsers = allUsers.filter(function (user: any) {
+          if (user) {
+            return user.id !== currentUser;
+          }
+        });
+
+        this.allUser = allUsers;
+    }));
   }
 
   openCreateRoomModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   addNewChatRoom(user) {
