@@ -45,10 +45,18 @@ export class ChatroomService {
 
   createMessage(text: string) {
     const chatroomId = this.changeChatroom.value;
+    const currentUser = this.afauth.auth.currentUser.uid;
+    console.log('createMessage- currentUser');
+    console.log(currentUser);
+    const recipientId = chatroomId.split('_')[1] === currentUser ? chatroomId.split('_')[0] : chatroomId.split('_')[1];
+    console.log('createMessage - receiver');
+    console.log(recipientId);
+
     const message = {
       message: text,
       createdAt: new Date(),
-      sender: this.authService.currentUserSnapshot
+      sender: this.authService.currentUserSnapshot,
+      recipientId: recipientId
     };
 
     this.db.collection(`chatrooms/${chatroomId}/messages`).add(message);

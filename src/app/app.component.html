@@ -4,6 +4,18 @@
         {{alert.text}}
     </alert>
 </div>
+<div class="message-alert-wrapper">
+    <alert *ngIf = "msg.currentMessage | async as message" type="success" dismissOnTimeout="2000" class="text-center">
+        <img [src] = "message?.notification.icon " width="100px">
+        <h1>{{message?.notification.title}}</h1>
+        <p>{{message?.notification.body}}</p>
+    </alert>
+</div>
+<!-- <div *ngIf = "msg.currentMessage | async as message" class="notification is-dark slideInRight">
+    <img [src] = "message?.notification.icon " width="100px">
+    <h1>{{message?.notification.title}}</h1>
+    <p>{{message?.notification.body}}</p>
+</div> -->
 <router-outlet></router-outlet>
 
 
