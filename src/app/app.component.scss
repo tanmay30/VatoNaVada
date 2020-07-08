@@ -12,3 +12,16 @@
         z-index: 100;
     }
 }
+
+
+.message-alert-wrapper{
+    position: relative;
+
+
+    alert{
+        position: absolute;
+        top: $navbar-height;
+        width:100%;
+        z-index: 100;
+    }
+}

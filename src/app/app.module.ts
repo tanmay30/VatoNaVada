@@ -45,6 +45,7 @@ import { ChatroomWindowComponent } from './pages/chat/components/chatroom-window
 import { ProfileComponent } from './pages/profile/profile.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { GetUsersService } from './services/get-users.service';
+import { MessagingService } from './services/messaging.service';
 
 
 
@@ -82,7 +83,8 @@ import { GetUsersService } from './services/get-users.service';
               AuthGuard,
               ChatroomService,
               IsOwnerGuard,
-              GetUsersService
+              GetUsersService,
+              MessagingService
             ],
   bootstrap: [AppComponent]
 })

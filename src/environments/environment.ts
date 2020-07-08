@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  firebase:{
+  firebase: {
     apiKey: 'AIzaSyCqbKlqOLjsrlmXZR46XfrLl3Ya36nkpJo',
     authDomain: 'vatonavada-37494.firebaseapp.com',
     databaseURL: 'https://vatonavada-37494.firebaseio.com',
